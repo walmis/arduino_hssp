@@ -56,7 +56,7 @@ unsigned char program_block[] =
 };
 
 // ----------------------------- General PSoC Vectors--------------------------
-const unsigned int num_bits_init1 = 396;
+const unsigned int num_bits_init1 = 400;
 const unsigned char init1_v[] =
 {
   0xCA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -68,7 +68,7 @@ const unsigned char init1_v[] =
   0x89, 0x70
 };
 
-const unsigned int num_bits_init2 = 286;
+const unsigned int num_bits_init2 = 288;
 const unsigned char init2_v[] =
 {
   0xDE, 0xE0, 0x1F, 0x7B, 0x00, 0x79, 0xF0, 0x75,
@@ -97,7 +97,7 @@ const unsigned char init3_5v[] =
   0x00
 };
 
-const unsigned int num_bits_init3_3v = 836;
+const unsigned int num_bits_init3_3v = 840;
 const unsigned char init3_3v[] =
 {
   0xDE, 0xE0, 0x1F, 0x7A, 0x01, 0xFD, 0xEA, 0x01,
@@ -116,7 +116,7 @@ const unsigned char init3_3v[] =
   0x00
 };
 
-const unsigned int num_bits_id_setup = 330;
+const unsigned int num_bits_id_setup = 336;
 const unsigned char id_setup_v[] =
 {
   0xDE, 0xE2, 0x1F, 0x70, 0x01, 0x7D, 0xEE, 0x01,
