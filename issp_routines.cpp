@@ -218,10 +218,10 @@ signed char fDetectHiLoTransition(void)
     // Generate clocks for the target to pull SDATA High
     iTimer = millis() + TRANSITION_TIMEOUT;
     while(1) {
-//        SCLKLow();
+        SCLKLow();
         if (fSDATACheck())       // exit once SDATA goes HI
             break;
-//        SCLKHigh();
+        SCLKHigh();
         // If the wait is too long then timeout
         if (iTimer < millis()) {
 			return (ERROR);
@@ -232,11 +232,11 @@ signed char fDetectHiLoTransition(void)
 	// Generate Clocks and wait for Target to pull SDATA Low again
     iTimer = millis() + TRANSITION_TIMEOUT;              // reset the timeout counter
     while(1) {
-//        SCLKLow();
+        SCLKLow();
         if (!fSDATACheck()) {   // exit once SDATA returns LOW 
             break;
         }
-//        SCLKHigh();
+        SCLKHigh();
         // If the wait is too long then timeout
         if (iTimer < millis()) {
             return (ERROR);
