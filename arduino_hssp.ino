@@ -348,6 +348,7 @@ int here;
 uint8_t buff[256]; // global block storage
 unsigned char bit;
 volatile unsigned char *out;
+int psocisp();
 
 uint8_t getch() {
   while(!Serial.available());
