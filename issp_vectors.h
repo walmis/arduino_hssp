@@ -116,7 +116,7 @@ const unsigned char init3_3v[] =
   0x00
 };
 
-const unsigned int num_bits_id_setup = 336;
+const unsigned int num_bits_id_setup = 330;
 const unsigned char id_setup_v[] =
 {
   0xDE, 0xE2, 0x1F, 0x70, 0x01, 0x7D, 0xEE, 0x01,

@@ -519,7 +519,7 @@ void setup() {
   bit = digitalPinToBitMask(SDATA_PIN);
   out = portOutputRegister(digitalPinToPort(SDATA_PIN));
   param.prog_mode = RESET_MODE;
-  param.targ_voltage = TARGET_VOLTAGE_3_3V;
+  param.targ_voltage = TARGET_VOLTAGE_5V;
   param.chksm_setup = CHECKSUM_SETUP_21_23_27_TST110_TMG110;
   param.prgm_block = PROGRAM_BLOCK_21_22_23_24_28_29_TST_TMG_TMA;
   param.multi_bank = false;
