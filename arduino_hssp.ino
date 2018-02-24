@@ -429,6 +429,10 @@ int8_t start_pmode() {
   } else {
     result = fPowerCycleInitializeTargetForISSP();
   }
+  if (result)
+        Serial.print((char) Resp_STK_FAILED);
+  else
+        Serial.print((char) Resp_STK_OK);
   pmode = 1;
   return result;
 }
