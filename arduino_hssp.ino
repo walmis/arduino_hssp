@@ -324,6 +324,8 @@
 //----------------------------------------------------------------------------
 */
 
+#define CY8C21x45
+
 // ------ Declarations Associated with ISSP Files & Routines -------
 //     Add these to your project as needed.
 #include "issp_extern.h"
@@ -576,7 +578,7 @@ int psocisp() {
       break;
     case Cmnd_STK_ENTER_PROGMODE:
       start_pmode();
-      empty_reply();
+      //empty_reply();
       break;
     case Cmnd_STK_CHIP_ERASE:
       erase_chip();
