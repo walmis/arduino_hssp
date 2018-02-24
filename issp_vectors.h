@@ -167,6 +167,11 @@ const unsigned char read_byte_v[] =
   0xB0, 0x80
 };
 
+const unsigned char read_reg_v[] =
+{
+  0xE0, 0x80
+};
+
 const unsigned int num_bits_verify_setup = 264;
 const unsigned char verify_setup_v[] =
 {

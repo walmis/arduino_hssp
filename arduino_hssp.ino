@@ -461,6 +461,21 @@ char flash_read_page(int length) {
   return Resp_STK_OK;
 }
 
+void read_reg() {
+  char result = (char)Resp_STK_FAILED;
+  int addr = getch();
+  if (Sync_CRC_EOP != getch()) {
+    error++;
+    Serial.print((char) Resp_STK_NOSYNC);
+    return;
+  }
+  Serial.print((char) Resp_STK_INSYNC);
+  result = readReg(addr);
+  Serial.print(result);
+  Serial.print((char) Resp_STK_OK);
+  return;
+}
+
 void read_page() {
   char result = (char)Resp_STK_FAILED;
   int length = 256 * getch();
@@ -579,6 +594,9 @@ int psocisp() {
       break;
     case Cmnd_STK_READ_PAGE:
       read_page();    
+      break;
+    case Cmnd_STK_READ_REG:
+      read_reg();
       break;
     case Cmnd_STK_LEAVE_PROGMODE:
       error=0;

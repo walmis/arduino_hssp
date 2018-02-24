@@ -56,7 +56,8 @@
 #define Cmnd_STK_READ_SIGN         0x75  // ' '
 #define Cmnd_STK_READ_OSCCAL       0x76  // ' '
 #define Cmnd_STK_READ_FUSE_EXT     0x77  // ' '		
-#define Cmnd_STK_READ_OSCCAL_EXT   0x78  // ' '     
+#define Cmnd_STK_READ_OSCCAL_EXT   0x78  // ' '
+#define Cmnd_STK_READ_REG          0x79  // ' '
 
 // *****************[ STK Parameter constants ]***************************
 

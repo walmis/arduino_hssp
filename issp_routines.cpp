@@ -391,10 +391,26 @@ void setAddress(unsigned char bBankNumber, unsigned char bBlockNumber) {
 
   SendVector(verify_setup_v, num_bits_verify_setup);
   if (fIsError = fDetectHiLoTransition()) {
-    //Serial.print((char)STK_FAILED);
-     // return(BLOCK_ERROR); // TODO
+    Serial.print(0x11);
+    return(BLOCK_ERROR); // TODO
   }
   SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);
+}
+
+uint8_t readReg(uint8_t bTargetReg) {
+  //Send Read Byte vector and then get a byte from Target
+  SendVector(read_reg_v, 3);
+  // Set the drive here because SendByte() does not
+  SetSDATAStrong();
+  SendByte(bTargetReg, 8);
+
+  RunClock(2);       // Run two SCLK cycles between writing and reading
+  SetSDATAHiZ();     // Set to HiZ so Target can drive SDATA
+  bTargetDataIN = bReceiveByte();
+
+  RunClock(1);
+  SendVector(read_reg_v + 1, 1);     // Send the ReadByte Vector End
+  return bTargetDataIN;
 }
 
 uint8_t readByte(uint8_t bTargetAddress) {
