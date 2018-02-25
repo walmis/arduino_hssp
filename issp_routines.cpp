@@ -413,6 +413,15 @@ uint8_t readReg(uint8_t bTargetReg) {
   return bTargetDataIN;
 }
 
+void writeReg(uint8_t bTargetReg, uint8_t bValue) {
+  SendVector(write_reg_v, 3);
+  // Set the drive here because SendByte() does not
+  SetSDATAStrong();
+  SendByte(bTargetReg, 8);
+  SendByte(bValue, 8);
+  SendVector(write_reg_v+1, 3);     // Send the ReadByte Vector End
+}
+
 uint8_t readByte(uint8_t bTargetAddress) {
   //Send Read Byte vector and then get a byte from Target
   SendVector(read_byte_v, 3);

@@ -493,6 +493,20 @@ void read_reg() {
   return;
 }
 
+void write_reg() {
+  char result = (char)Resp_STK_FAILED;
+  int addr = getch();
+  int value = getch();
+  if (Sync_CRC_EOP != getch()) {
+    error++;
+    Serial.print((char) Resp_STK_NOSYNC);
+    return;
+  }
+  writeReg(addr, value);
+  empty_reply();
+  return;
+}
+
 void read_page() {
   char result = (char)Resp_STK_FAILED;
   int length = 256 * getch();
