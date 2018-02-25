@@ -471,6 +471,34 @@ int8_t getSiliconID(uint8_t * buff) {
   return 0;
 }
 
+int Exec(const unsigned char *opcodes)
+{
+/* [DE E0 1C] wrreg CPU_F, 0x00
+[DE 80 7C] wrreg F4, 0x03
+[DE A0 1C] wrreg F5, 0x00
+[DE C1 1C] wrreg F6, 0x08
+[DF 0A 3C] wrreg opc0, 0x51
+[DF 3F 9C] wrreg opc1, 0xFC
+[DF 46 1C] wrreg opc2, 0x30
+[DF E2 5C] wrreg CPU_SCR0, 0x12*/
+  writeReg(0xF7, 0);
+  writeReg(0xF4, 0x03);
+  writeReg(0xF5, 0x00);
+  writeReg(0xF6, 0x08);
+  writeReg(0xF8, opcodes[0]);
+  writeReg(0xF9, opcodes[1]);
+  writeReg(0xFA, opcodes[2]);
+  writeReg(0xFF, 0x12);
+  // Send nop ?
+  //
+  SendVector(wait_and_poll_end, 22);
+
+  if (fIsError = fDetectHiLoTransition()) {
+      return(INIT_ERROR);
+  }
+  SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);
+}
+
 // ============================================================================
 // fEraseTarget()
 // Perform a bulk erase of the target device.

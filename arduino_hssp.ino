@@ -523,6 +523,24 @@ void write_reg() {
   return;
 }
 
+void exec_opcodes() {
+  char result = (char)Resp_STK_FAILED;
+  unsigned char opc[3];
+  opc[0] = getch();
+  opc[1] = getch();
+  opc[2] = getch();
+
+  if (Sync_CRC_EOP != getch()) {
+    error++;
+    Serial.print((char) Resp_STK_NOSYNC);
+    return;
+  }
+  Exec(opc);
+  Serial.print((char) Resp_STK_INSYNC);
+  Serial.print((char) Resp_STK_OK);
+  return;
+}
+
 void read_page() {
   char result = (char)Resp_STK_FAILED;
   int length = 256 * getch();
@@ -653,6 +671,9 @@ int psocisp() {
       break;
     case Cmnd_STK_WRITE_REG:
       write_reg();
+      break;
+    case Cmnd_STK_EXEC_OPCODES:
+      exec_opcodes();
       break;
     case Cmnd_STK_LEAVE_PROGMODE:
       error=0;
