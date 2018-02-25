@@ -458,9 +458,24 @@ void read_signature() {
 
 char flash_read_page(int length) {
   for (uint8_t x = 0; x < length; x++) {
-    Serial.write(readByte(x));
+    Serial.write(readByte(0x80+x));
   }
   return Resp_STK_OK;
+}
+
+void read_mem() {
+  char result = (char)Resp_STK_FAILED;
+  int addr = getch();
+  if (Sync_CRC_EOP != getch()) {
+    error++;
+    Serial.print((char) Resp_STK_NOSYNC);
+    return;
+  }
+  Serial.print((char) Resp_STK_INSYNC);
+  result = readByte(addr);
+  Serial.print(result);
+  Serial.print((char) Resp_STK_OK);
+  return;
 }
 
 void read_reg() {
@@ -596,6 +611,9 @@ int psocisp() {
       break;
     case Cmnd_STK_READ_PAGE:
       read_page();    
+      break;
+    case Cmnd_STK_READ_MEM:
+      read_mem();
       break;
     case Cmnd_STK_READ_REG:
       read_reg();

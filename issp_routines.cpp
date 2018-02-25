@@ -415,10 +415,10 @@ uint8_t readReg(uint8_t bTargetReg) {
 
 uint8_t readByte(uint8_t bTargetAddress) {
   //Send Read Byte vector and then get a byte from Target
-  SendVector(read_byte_v, 5);
+  SendVector(read_byte_v, 3);
   // Set the drive here because SendByte() does not
   SetSDATAStrong();
-  SendByte(bTargetAddress << 2,6);
+  SendByte(bTargetAddress, 8);
 
   RunClock(2);       // Run two SCLK cycles between writing and reading
   SetSDATAHiZ();     // Set to HiZ so Target can drive SDATA
