@@ -419,7 +419,7 @@ void writeReg(uint8_t bTargetReg, uint8_t bValue) {
   SetSDATAStrong();
   SendByte(bTargetReg, 8);
   SendByte(bValue, 8);
-  SendVector(write_reg_v+1, 3);     // Send the ReadByte Vector End
+  SendVector(write_reg_v+1, 3);
 }
 
 uint8_t readByte(uint8_t bTargetAddress) {
@@ -436,6 +436,15 @@ uint8_t readByte(uint8_t bTargetAddress) {
   RunClock(1);
   SendVector(read_byte_v + 1, 1);     // Send the ReadByte Vector End
   return bTargetDataIN;
+}
+
+void writeByte(uint8_t bTargetAddress, uint8_t bValue) {
+  SendVector(write_byte_start, 3);
+  // Set the drive here because SendByte() does not
+  SetSDATAStrong();
+  SendByte(bTargetAddress, 8);
+  SendByte(bValue, 8);
+  SendVector(write_byte_end, 3);
 }
 
 int8_t getSiliconID(uint8_t * buff) {

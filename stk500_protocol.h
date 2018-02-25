@@ -60,6 +60,7 @@
 #define Cmnd_STK_READ_REG          0x79  // ' '
 #define Cmnd_STK_WRITE_REG         0x80  // ' '
 #define Cmnd_STK_READ_MEM          0x81  // ' '
+#define Cmnd_STK_WRITE_MEM         0x82  // ' '
 
 // *****************[ STK Parameter constants ]***************************
 

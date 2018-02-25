@@ -478,6 +478,21 @@ void read_mem() {
   return;
 }
 
+void write_mem() {
+  char result = (char)Resp_STK_FAILED;
+  int addr = getch();
+  int value = getch();
+  if (Sync_CRC_EOP != getch()) {
+    error++;
+    Serial.print((char) Resp_STK_NOSYNC);
+    return;
+  }
+  writeByte(addr, value);
+  Serial.print((char) Resp_STK_INSYNC);
+  Serial.print((char) Resp_STK_OK);
+  return;
+}
+
 void read_reg() {
   char result = (char)Resp_STK_FAILED;
   int addr = getch();
@@ -629,6 +644,9 @@ int psocisp() {
       break;
     case Cmnd_STK_READ_MEM:
       read_mem();
+      break;
+    case Cmnd_STK_WRITE_MEM:
+      write_mem();
       break;
     case Cmnd_STK_READ_REG:
       read_reg();
