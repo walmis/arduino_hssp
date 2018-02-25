@@ -439,12 +439,14 @@ uint8_t readByte(uint8_t bTargetAddress) {
 }
 
 void writeByte(uint8_t bTargetAddress, uint8_t bValue) {
-  SendVector(write_byte_start, 3);
   // Set the drive here because SendByte() does not
   SetSDATAStrong();
+  SendByte(write_byte_start, 3);
   SendByte(bTargetAddress, 8);
   SendByte(bValue, 8);
-  SendVector(write_byte_end, 3);
+  SendByte(write_byte_end, 3);
+
+  SetSDATAHiZ();
 }
 
 int8_t getSiliconID(uint8_t * buff) {
