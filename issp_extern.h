@@ -47,6 +47,7 @@ extern int8_t getSiliconID(uint8_t * buff);
 extern void setAddress(unsigned char, unsigned char);
 extern byte readByte(unsigned char bTargetAddress);
 extern byte readReg(unsigned char bTargetReg);
+extern void writeReg(unsigned char bTargetReg, unsigned char bValue);
 extern signed char fAccTargetBankChecksum(unsigned int*);
 extern void SetBankNumber(unsigned char);
 extern signed char fProgramTargetBlock(unsigned char, unsigned char);

@@ -503,7 +503,8 @@ void write_reg() {
     return;
   }
   writeReg(addr, value);
-  empty_reply();
+  Serial.print((char) Resp_STK_INSYNC);
+  Serial.print((char) Resp_STK_OK);
   return;
 }
 
@@ -631,6 +632,9 @@ int psocisp() {
       break;
     case Cmnd_STK_READ_REG:
       read_reg();
+      break;
+    case Cmnd_STK_WRITE_REG:
+      write_reg();
       break;
     case Cmnd_STK_LEAVE_PROGMODE:
       error=0;

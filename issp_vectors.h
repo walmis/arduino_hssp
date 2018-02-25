@@ -174,7 +174,7 @@ const unsigned char read_reg_v[] =
 
 const unsigned char write_reg_v[] =
 {
-  0xC0, 0x80
+  0xC0, 0xE0
 };
 
 const unsigned int num_bits_verify_setup = 264;
