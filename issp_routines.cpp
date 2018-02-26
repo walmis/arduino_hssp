@@ -625,6 +625,7 @@ void send_checksum_v(void)
     checksum_v[26] = 0x40;
 
     SendVector(checksum_v, num_bits_checksum); 
+    RunClock(2);
 }
 
 // ============================================================================

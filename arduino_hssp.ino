@@ -614,6 +614,7 @@ void loop() {
 
 int psocisp() {
   uint8_t data, low, high, res;
+  uint16_t checksum_delay = 0;
   uint8_t ch = getch();
   int csum = 0;
   switch (ch) {
@@ -690,9 +691,12 @@ int psocisp() {
       Serial.print((char) Resp_STK_OK);
       break;
     case Cmnd_STK_START_CSUM:
+      checksum_delay = getch()<<8;
+      checksum_delay |= getch();
       send_checksum_v();
-      delayMicroseconds(10);
+      delayMicroseconds(checksum_delay);
       start_pmode();
+      //fPowerCycleInitializeTargetForISSP();
       break;
     case Cmnd_STK_LEAVE_PROGMODE:
       error=0;
