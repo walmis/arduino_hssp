@@ -613,8 +613,9 @@ void loop() {
 }
 
 int psocisp() {
-  uint8_t data, low, high;
+  uint8_t data, low, high, res;
   uint8_t ch = getch();
+  int csum = 0;
   switch (ch) {
     case Cmnd_STK_GET_SYNC: // signon
       error = 0;
@@ -669,11 +670,29 @@ int psocisp() {
     case Cmnd_STK_READ_REG:
       read_reg();
       break;
+    case Cmnd_STK_READ_SECURITY:
+      res = fVerifySecurity();
+      Serial.print((char) Resp_STK_INSYNC);
+      Serial.print((char) res);
+      Serial.print((char) Resp_STK_OK);
+      break;
     case Cmnd_STK_WRITE_REG:
       write_reg();
       break;
     case Cmnd_STK_EXEC_OPCODES:
       exec_opcodes();
+      break;
+    case Cmnd_STK_RUN_CSUM:
+      fAccTargetBankChecksum(&csum);
+      Serial.print((char) Resp_STK_INSYNC);
+      Serial.print((char)(csum&0xFF));
+      Serial.print((char)((csum>>8)&0xFF));
+      Serial.print((char) Resp_STK_OK);
+      break;
+    case Cmnd_STK_START_CSUM:
+      send_checksum_v();
+      delayMicroseconds(10);
+      start_pmode();
       break;
     case Cmnd_STK_LEAVE_PROGMODE:
       error=0;

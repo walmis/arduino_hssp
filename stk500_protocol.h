@@ -62,6 +62,9 @@
 #define Cmnd_STK_READ_MEM          0x81  // ' '
 #define Cmnd_STK_WRITE_MEM         0x82  // ' '
 #define Cmnd_STK_EXEC_OPCODES      0x83  // ' '
+#define Cmnd_STK_RUN_CSUM          0x84  // ' '
+#define Cmnd_STK_START_CSUM        0x85  // ' '
+#define Cmnd_STK_READ_SECURITY     0x86  // ' '
 
 // *****************[ STK Parameter constants ]***************************
 

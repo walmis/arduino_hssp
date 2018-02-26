@@ -619,6 +619,14 @@ signed char fProgramTargetBlock(unsigned char bBankNumber, unsigned char bBlockN
 }
 
 
+void send_checksum_v(void)
+{
+    checksum_v[17] = 0xF6;
+    checksum_v[26] = 0x40;
+
+    SendVector(checksum_v, num_bits_checksum); 
+}
+
 // ============================================================================
 // fAddTargetBankChecksum()
 // Reads and adds the target bank checksum to the referenced accumulator.
@@ -628,16 +636,16 @@ signed char fProgramTargetBlock(unsigned char bBankNumber, unsigned char bBlockN
 // ============================================================================
 signed char fAccTargetBankChecksum(unsigned int* pAcc)
 {
-  if(chksm_setup==CHECKSUM_SETUP_22_24_28_29_TST120_TMG120_TMA120) {
+//  if(chksm_setup==CHECKSUM_SETUP_22_24_28_29_TST120_TMG120_TMA120) {
     checksum_v[17] = 0xF6;
     checksum_v[26] = 0x40;
-  } else if(chksm_setup==CHECKSUM_SETUP_24_24A) {
+/*  } else if(chksm_setup==CHECKSUM_SETUP_24_24A) {
     checksum_v[17] = 0xF7;
     checksum_v[26] = 0x20;
   } else {
     checksum_v[17] = 0xF7;
     checksum_v[26] = 0x00;
-  }
+  }*/
 
     SendVector(checksum_v, num_bits_checksum); 
     if (fIsError = fDetectHiLoTransition()) {
@@ -781,3 +789,19 @@ unsigned char bTemp;
     return(PASS);
 }*/
 
+signed char fVerifySecurity(void)
+{
+	//Send the vector to read the security bits
+	SendVector(securityVerification_v, num_bits_securityVerification);
+	
+	//Generate one clock to make M8C core to start executing the instructions 
+	//from the test queue
+	SCLKHigh();
+	SCLKLow();
+	
+	if (fIsError = fDetectHiLoTransition()) {
+        return(SECURITY_ERROR);
+    }
+	SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);
+    return PASS;
+}

@@ -51,10 +51,12 @@ extern int Exec(const unsigned char *opcodes);
 extern void writeReg(unsigned char bTargetReg, unsigned char bValue);
 extern void writeByte(unsigned char bTargetAddress, unsigned char bValue);
 extern signed char fAccTargetBankChecksum(unsigned int*);
+extern void send_checksum_v(void);
 extern void SetBankNumber(unsigned char);
 extern signed char fProgramTargetBlock(unsigned char, unsigned char);
 extern signed char fVerifyTargetBlock(unsigned char, unsigned char);
 extern signed char fSecureTargetFlash(void);
+extern signed char fVerifySecurity(void);
 
 extern void LoadArrayWithSecurityData(unsigned char, unsigned char, unsigned char);
 
