@@ -68,7 +68,7 @@ unsigned char  fIsError;
 // ============================================================================
 void RunClock(unsigned int iNumCycles)
 {
-    int i;
+    unsigned int i;
 
     for(i=0; i < iNumCycles; i++) {
         SCLKLow();
@@ -255,11 +255,8 @@ signed char fDetectHiLoTransition(void)
 // ============================================================================
 // fXRESInitializeTargetForISSP()
 // Implements the intialization vectors for the device.
-// Returns:
-//     0 if successful
-//     INIT_ERROR if timed out on handshake to the device.
 // ============================================================================
-signed char fXRESInitializeTargetForISSP(void)
+void fXRESInitializeTargetForISSP(void)
 {
     // Configure the pins for initialization
     SetSDATAHiZ();
@@ -271,7 +268,7 @@ signed char fXRESInitializeTargetForISSP(void)
     AssertXRES();
     delayMicroseconds(XRES_CLK_DELAY);
     DeassertXRES();
-
+    //
     // !!! NOTE: 
     //  The timing spec that requires that the first Init-Vector happen within
     //  1 msec after the reset/power up. For this reason, it is not advisable
@@ -337,7 +334,7 @@ signed char fPowerCycleInitializeTargetForISSP(void)
     // Set SCLK to high Z so there is no clock and wait for a high to low
     // transition on SDAT. SCLK is not needed this time.
     SetSCLKHiZ();
-    if (fIsError = fDetectHiLoTransition()) {
+    if ((fIsError = fDetectHiLoTransition())) {
         return(INIT_ERROR);
     }    
 
@@ -355,14 +352,14 @@ signed char fPowerCycleInitializeTargetForISSP(void)
 
     // Send Initialization Vectors and detect Hi-Lo transition on SDATA
     SendVector(init1_v, num_bits_init1); 
-    if (fIsError = fDetectHiLoTransition()) {
+    if ((fIsError = fDetectHiLoTransition())) {
         return(INIT_ERROR);
     }
     SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);
 
     // Send Initialize 2 Vector
     SendVector(init2_v, num_bits_init2);
-    if (fIsError = fDetectHiLoTransition()) {
+    if ((fIsError = fDetectHiLoTransition())) {
         return(INIT_ERROR);
     }
     SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);
@@ -390,9 +387,8 @@ void setAddress(unsigned char bBankNumber, unsigned char bBlockNumber) {
   SendByte(set_block_number_end, 3);
 
   SendVector(verify_setup_v, num_bits_verify_setup);
-  if (fIsError = fDetectHiLoTransition()) {
-    Serial.print(0x11);
-    return(BLOCK_ERROR); // TODO
+  if ((fIsError = fDetectHiLoTransition())) {
+    return;
   }
   SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);
 }
@@ -452,7 +448,7 @@ void writeByte(uint8_t bTargetAddress, uint8_t bValue) {
 int8_t getSiliconID(uint8_t * buff) {
   // Send ID-Setup vector set
   SendVector(id_setup_v, num_bits_id_setup);
-  if (fIsError = fDetectHiLoTransition()) {
+  if ((fIsError = fDetectHiLoTransition())) {
     return(SiID_ERROR);
   }
   SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);     
@@ -495,10 +491,12 @@ int Exec(const unsigned char *opcodes)
   //
   SendVector(wait_and_poll_end, 22);
 
-  if (fIsError = fDetectHiLoTransition()) {
+  if ((fIsError = fDetectHiLoTransition())) {
       return(INIT_ERROR);
   }
   SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);
+
+  return PASS;
 }
 
 // ============================================================================
@@ -511,7 +509,7 @@ int Exec(const unsigned char *opcodes)
 signed char fEraseTarget(void)
 {
     SendVector(erase_all_v, num_bits_erase_all);
-    if (fIsError = fDetectHiLoTransition()) {
+    if ((fIsError = fDetectHiLoTransition())) {
         return(ERASE_ERROR);
     }
     SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);
@@ -610,7 +608,7 @@ signed char fProgramTargetBlock(unsigned char bBankNumber, unsigned char bBlockN
     }
     SendVector(program_block, num_bits_program_block);
     // wait for acknowledge from target.
-    if (fIsError = fDetectHiLoTransition()) {
+    if ((fIsError = fDetectHiLoTransition())) {
         return(BLOCK_ERROR);
     }
     // Send the Wait-For-Poll-End vector
@@ -649,7 +647,7 @@ signed char fAccTargetBankChecksum(unsigned int* pAcc)
   }*/
 
     SendVector(checksum_v, num_bits_checksum); 
-    if (fIsError = fDetectHiLoTransition()) {
+    if ((fIsError = fDetectHiLoTransition())) {
         return(VERIFY_ERROR);
     }
 
@@ -712,7 +710,7 @@ signed char fVerifyTargetBlock(unsigned char bBankNumber, unsigned char bBlockNu
     SendByte(set_block_number_end, 3);
      
     SendVector(verify_setup_v, num_bits_verify_setup);
-    if (fIsError = fDetectHiLoTransition()) {
+    if ((fIsError = fDetectHiLoTransition())) {
         return(BLOCK_ERROR);
     }
     SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);     
@@ -800,7 +798,7 @@ signed char fVerifySecurity(void)
 	SCLKHigh();
 	SCLKLow();
 	
-	if (fIsError = fDetectHiLoTransition()) {
+	if ((fIsError = fDetectHiLoTransition())) {
         return(SECURITY_ERROR);
     }
 	SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);

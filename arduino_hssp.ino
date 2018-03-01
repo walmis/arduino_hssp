@@ -312,9 +312,6 @@
  freqency. In other words, if the maximum SCLK frequency is 8MHz, there can be
  no high or low pulses shorter than 1/(2*8MHz), or 62.5 nsec.
 
-/* ############################################################################
-   ############################################################################ 
-
 (((((((((((((((((((((((((((((((((((((()))))))))))))))))))))))))))))))))))))) */
 
 
@@ -425,9 +422,9 @@ int8_t erase_chip() {
 // Initialize the Host & Target for ISSP operations
 int8_t start_pmode() {
   // Acquire the device through reset or power cycle
-  int8_t result;
+  int8_t result = PASS;
   if(param.prog_mode == RESET_MODE) {
-    result = fXRESInitializeTargetForISSP();
+    fXRESInitializeTargetForISSP();
   } else {
     result = fPowerCycleInitializeTargetForISSP();
   }
@@ -479,7 +476,6 @@ void read_mem() {
 }
 
 void write_mem() {
-  char result = (char)Resp_STK_FAILED;
   int addr = getch();
   int value = getch();
   if (Sync_CRC_EOP != getch()) {
@@ -509,7 +505,6 @@ void read_reg() {
 }
 
 void write_reg() {
-  char result = (char)Resp_STK_FAILED;
   int addr = getch();
   int value = getch();
   if (Sync_CRC_EOP != getch()) {
@@ -524,7 +519,6 @@ void write_reg() {
 }
 
 void exec_opcodes() {
-  char result = (char)Resp_STK_FAILED;
   unsigned char opc[3];
   opc[0] = getch();
   opc[1] = getch();
@@ -613,10 +607,10 @@ void loop() {
 }
 
 int psocisp() {
-  uint8_t data, low, high, res;
+  uint8_t res;
   uint16_t checksum_delay = 0;
   uint8_t ch = getch();
-  int csum = 0;
+  unsigned int csum = 0;
   switch (ch) {
     case Cmnd_STK_GET_SYNC: // signon
       error = 0;
@@ -717,9 +711,11 @@ int psocisp() {
       // anything else we will return Resp_STK_UNKNOWN
     default:
       error++;
-      if (Sync_CRC_EOP == getch()) 
+      if (Sync_CRC_EOP == getch())
         Serial.print((char)Resp_STK_UNKNOWN);
       else
         Serial.print((char)Resp_STK_NOSYNC);
   }
+
+  return 0;
 }
