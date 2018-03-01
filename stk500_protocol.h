@@ -33,7 +33,8 @@
 #define Cmnd_STK_SET_DEVICE        0x42  // ' '
 #define Cmnd_STK_SET_DEVICE_EXT    0x45  // ' '			
 
-#define Cmnd_STK_ENTER_PROGMODE    0x50  // ' '
+#define Cmnd_STK_ENTER_PROGMODE    0x49  // ' '
+#define Cmnd_STK_INIT_PROGMODE     0x50  // ' '
 #define Cmnd_STK_LEAVE_PROGMODE    0x51  // ' '
 #define Cmnd_STK_CHIP_ERASE        0x52  // ' '
 #define Cmnd_STK_CHECK_AUTOINC     0x53  // ' '

@@ -39,6 +39,7 @@
 #include "Arduino.h"
 
 extern void fXRESInitializeTargetForISSP(void);
+extern signed char SendInitVectors(void);
 extern signed char fPowerCycleInitializeTargetForISSP(void);
 extern signed char fEraseTarget(void);
 extern unsigned int iLoadTarget(void);

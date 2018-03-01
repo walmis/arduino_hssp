@@ -276,25 +276,30 @@ void fXRESInitializeTargetForISSP(void)
     //  Init-Vector instructions below. Doing so could introduce excess delay
     //  and cause the target device to exit ISSP Mode.
 
-    // Send Initialization Vectors and detect Hi-Lo transition on SDATA
+    // Here we send the magic that transitions into prog mode
+    SendVector(init0_v, num_bits_init0); 
+}
+
+signed char SendInitVectors(void)
+{
     SendVector(init1_v, num_bits_init1); 
-    if (fIsError = fDetectHiLoTransition()) {
+    if ((fIsError = fDetectHiLoTransition())) {
         return(INIT_ERROR);
     }
     SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);
 
     // Send Initialize 2 Vector
     SendVector(init2_v, num_bits_init2);
-    if (fIsError = fDetectHiLoTransition()) {
+    if ((fIsError = fDetectHiLoTransition())) {
         return(INIT_ERROR);
     }
     SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);      
      
     // Send Initialize 3 Vector NOTE: the proper vector based on Vdd of target
     if(param.targ_voltage == TARGET_VOLTAGE_5V) {
-    SendVector(init3_5v, num_bits_init3_5v);          // Target Vdd = 5v
+        SendVector(init3_5v, num_bits_init3_5v);          // Target Vdd = 5v
     } else {
-    SendVector(init3_3v, num_bits_init3_3v);          // Target Vdd = 3.3v
+        SendVector(init3_3v, num_bits_init3_3v);          // Target Vdd = 3.3v
     }
 
     SendVector(wait_and_poll_end, num_bits_wait_and_poll_end);

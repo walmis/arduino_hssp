@@ -637,7 +637,12 @@ int psocisp() {
       break;
     case Cmnd_STK_ENTER_PROGMODE:
       start_pmode();
-      //empty_reply();
+      break;
+    case Cmnd_STK_INIT_PROGMODE:
+      res = SendInitVectors();
+      Serial.print((char) Resp_STK_INSYNC);
+      Serial.print((char) res);
+      Serial.print((char) Resp_STK_OK);
       break;
     case Cmnd_STK_CHIP_ERASE:
       erase_chip();
