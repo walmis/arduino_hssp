@@ -2,19 +2,19 @@
 //
 // This software is owned by Cypress Semiconductor Corporation (Cypress)
 // and is protected by and subject to worldwide patent protection (United
-// States and foreign), United States copyright laws and international 
-// treaty provisions. Cypress hereby grants to licensee a personal, 
-// non-exclusive, non-transferable license to copy, use, modify, create 
-// derivative works of, and compile the Cypress Source Code and derivative 
-// works for the sole purpose of creating custom software in support of 
-// licensee product to be used only in conjunction with a Cypress integrated 
-// circuit as specified in the applicable agreement. Any reproduction, 
-// modification, translation, compilation, or representation of this 
-// software except as specified above is prohibited without the express 
+// States and foreign), United States copyright laws and international
+// treaty provisions. Cypress hereby grants to licensee a personal,
+// non-exclusive, non-transferable license to copy, use, modify, create
+// derivative works of, and compile the Cypress Source Code and derivative
+// works for the sole purpose of creating custom software in support of
+// licensee product to be used only in conjunction with a Cypress integrated
+// circuit as specified in the applicable agreement. Any reproduction,
+// modification, translation, compilation, or representation of this
+// software except as specified above is prohibited without the express
 // written permission of Cypress.
 //
-// Disclaimer: CYPRESS MAKES NO WARRANTY OF ANY KIND,EXPRESS OR IMPLIED, 
-// WITH REGARD TO THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+// Disclaimer: CYPRESS MAKES NO WARRANTY OF ANY KIND,EXPRESS OR IMPLIED,
+// WITH REGARD TO THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 // Cypress reserves the right to make changes without further notice to the
 // materials described herein. Cypress does not assume any liability arising
@@ -197,15 +197,15 @@ const unsigned char security_v[] =
   0x27, 0xDF, 0x00, 0x1F, 0x7F, 0x89, 0x70
 };
 
-const unsigned  int num_bits_securityVerification = 308; 
+const unsigned  int num_bits_securityVerification = 308;
 const unsigned char securityVerification_v[] =
 {
     0xDE,0xE0,0x1F,0x7B,0x00,0x79,0xF0,0x75,0xE7,0xC8,0x1F,
     0x9F,0xA0,0x1E,0x7F,0x80,0x7D,0xEA,0x01,0xF7,0xA0,0x1F,
     0x9F,0x70,0x1F,0x7C,0x98,0x7D,0xF4,0x81,0xF7,0x80,0x87,
     0xDF,0x0,0x1F,0x7F,0x89,0x70
-    
-//		0b11011110, 0b11100000, 0b00011111, 0b01111011, 0b00000000, 0b01111001, 0b11110000, 0b01110101, 
+
+//		0b11011110, 0b11100000, 0b00011111, 0b01111011, 0b00000000, 0b01111001, 0b11110000, 0b01110101,
 //		0b11100111, 0b11001000, 0b00011111, 0b10011111, 0b10100000, 0b00011110, 0b01111111, 0b10000000,
 //		0b01111101, 0b11101010, 0b00000001, 0b11110111, 0b10100000, 0b00011111, 0b10011111, 0b01110000,
 //		0b00011111, 0b01111100, 0b10011000, 0b01111101, 0b11110100, 0b10000001, 0b11110111, 0b10000000,
