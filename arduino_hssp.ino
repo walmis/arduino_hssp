@@ -597,7 +597,7 @@ void setup() {
   param.chksm_setup = CHECKSUM_SETUP_21_23_27_TST110_TMG110;
   param.prgm_block = PROGRAM_BLOCK_21_22_23_24_28_29_TST_TMG_TMA;
   param.multi_bank = false;
-  Serial.begin(57600);
+  Serial.begin(115200);
 }
 
 void loop() {
