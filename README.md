@@ -1,32 +1,36 @@
 # arduino_hssp
-PSoC® 1 Device Programming using an Arduino
+Cypress PSoC® 1 Device hacking using an Arduino
 
-This is a port of the code found at http://www.cypress.com/?rID=2906 (AN44168, Revision 2.30) to the Arduino platform.
-It will write and verify ascending hex values to a PSoC® 1 Device connected to an Arduino running this code.
+This is a fork of the [original port](https://github.com/miracoli/arduino_hssp)
+of the code found at <http://www.cypress.com/?rID=2906> (AN44168, Revision
+2.30) to the Arduino platform by Dirk Petrautzki.
 
-A desktop application for sending the Arduino a .hex file is planned as next step.
+Besides implementing the standard commands for flashing a PSoC, it includes the
+following extra commands:
+* `Cmnd_STK_READ_REG          0x79`
+* `Cmnd_STK_WRITE_REG         0x80`
+* `Cmnd_STK_READ_MEM          0x81`
+* `Cmnd_STK_WRITE_MEM         0x82`
+* `Cmnd_STK_EXEC_OPCODES      0x83`
+* `Cmnd_STK_RUN_CSUM          0x84`
+* `Cmnd_STK_START_CSUM        0x85`
+* `Cmnd_STK_READ_SECURITY     0x86`
 
-## Motivation
-
-The aim of the project is it, to make the purchase of a separate PSoC programmer obsolete for people who already own an Arduino.
+Which are very helpful to dump the protected flash of the PSoC.
 
 ## Usage
 
-Clone the code into a folder called 'arduino_hssp', open the project in the Arduino IDE and compile and program it. Connect your PSoC 1 device as follows (can be changed in issp_defs.h):
+Clone the code into a folder called 'arduino_hssp', run `make && make_upload` 
 
-SDATA_PIN -> 9
+Connect your PSoC 1 device as follows
+(can be changed in issp_defs.h):
 
-SCLK_PIN -> 8
-
-XRES_PIN -> 4
-
-TARGET_VDD -> 11
+* `SDATA_PIN` -> 9
+* `SCLK_PIN` -> 8
+* `XRES_PIN` -> 4
+* `TARGET_VDD` -> 11
 
 Run the code and check serial output.
 
 ## Project status
-Tested and working with Arduino Leonardo and CY8C21434.
-
-## TODOs
-Test with more Arduinos and PSoCs. Add desktop application to be able to program a hex file.
-
+Tested and working with Arduino Uno and CY8C21434.
