@@ -36,7 +36,7 @@
 // TRANSITION_TIMEOUT is a loop counter for a 100msec timeout when waiting for 
 // a high-to-low transition. This is used in the polling loop of 
 // fDetectHiLoTransition().
-#define TRANSITION_TIMEOUT     100
+#define TRANSITION_TIMEOUT     200
 
 // XRES_DELAY is the time duration for which XRES is asserted. This defines
 // a 63 usec delay.
