@@ -638,7 +638,7 @@ void send_checksum_v(void)
 //     0 if successful
 //     VERIFY_ERROR if timed out on handshake to the device.
 // ============================================================================
-signed char fAccTargetBankChecksum(unsigned int* pAcc)
+signed char fAccTargetBankChecksum(unsigned int* pAcc, unsigned char block_count)
 {
 //  if(chksm_setup==CHECKSUM_SETUP_22_24_28_29_TST120_TMG120_TMA120) {
     checksum_v[17] = 0xF6;
@@ -651,6 +651,8 @@ signed char fAccTargetBankChecksum(unsigned int* pAcc)
     checksum_v[26] = 0x00;
   }*/
 
+    checksum_v[26] = block_count>>1;
+    checksum_v[27] |= (block_count&1)<<7;
     SendVector(checksum_v, num_bits_checksum); 
     if ((fIsError = fDetectHiLoTransition())) {
         return(VERIFY_ERROR);

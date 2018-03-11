@@ -607,7 +607,7 @@ void loop() {
 }
 
 int psocisp() {
-  uint8_t res;
+  uint8_t res, block_count;
   uint32_t checksum_delay = 0, ms_delay = 0;
   uint8_t ch = getch();
   unsigned int csum = 0;
@@ -683,7 +683,8 @@ int psocisp() {
       exec_opcodes();
       break;
     case Cmnd_STK_RUN_CSUM:
-      fAccTargetBankChecksum(&csum);
+      block_count = getch();
+      fAccTargetBankChecksum(&csum, block_count);
       Serial.print((char) Resp_STK_INSYNC);
       Serial.print((char)(csum&0xFF));
       Serial.print((char)((csum>>8)&0xFF));

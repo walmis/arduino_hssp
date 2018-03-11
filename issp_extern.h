@@ -51,7 +51,7 @@ extern byte readReg(unsigned char bTargetReg);
 extern int Exec(const unsigned char *opcodes);
 extern void writeReg(unsigned char bTargetReg, unsigned char bValue);
 extern void writeByte(unsigned char bTargetAddress, unsigned char bValue);
-extern signed char fAccTargetBankChecksum(unsigned int*);
+extern signed char fAccTargetBankChecksum(unsigned int*, unsigned char block_count);
 extern void send_checksum_v(void);
 extern void SetBankNumber(unsigned char);
 extern signed char fProgramTargetBlock(unsigned char, unsigned char);
