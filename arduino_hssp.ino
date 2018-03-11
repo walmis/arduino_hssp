@@ -702,7 +702,8 @@ int psocisp() {
          ms_delay = 0;
       }
       send_checksum_v();
-      delayMicroseconds(checksum_delay);
+      if (checksum_delay)
+          delayMicroseconds(checksum_delay);
       delay(ms_delay);
       start_pmode();
       break;
