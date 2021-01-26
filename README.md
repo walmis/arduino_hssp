@@ -34,3 +34,6 @@ Run the code and check serial output.
 
 ## Project status
 Tested and working with Arduino Uno and CY8C21434.
+
+## Example hack
+<https://syscall.eu/blog/2018/03/12/aigo_part2/>
