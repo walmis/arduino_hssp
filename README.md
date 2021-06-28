@@ -5,6 +5,8 @@ This is a fork of the [original port](https://github.com/miracoli/arduino_hssp)
 of the code found at <http://www.cypress.com/?rID=2906> (AN44168, Revision
 2.30) to the Arduino platform by Dirk Petrautzki.
 
+Modified by walmis for STM32 bluepill boards
+
 Besides implementing the standard commands for flashing a PSoC, it includes the
 following extra commands:
 * `Cmnd_STK_READ_REG          0x79`
@@ -20,15 +22,15 @@ Which are very helpful to dump the protected flash of the PSoC.
 
 ## Usage
 
-Clone the code into a folder called 'arduino_hssp', run `make && make_upload` 
+Clone the code into a folder called 'arduino_hssp', run `platformio run` 
 
 Connect your PSoC 1 device as follows
 (can be changed in issp_defs.h):
 
-* `SDATA_PIN` -> 9
-* `SCLK_PIN` -> 8
-* `XRES_PIN` -> 4
-* `TARGET_VDD` -> 11
+* `SDATA_PIN` -> PB15
+* `SCLK_PIN` -> PB14
+* `XRES_PIN` -> PB13
+* (optional) `TARGET_VDD` -> PB12
 
 Run the code and check serial output.
 
