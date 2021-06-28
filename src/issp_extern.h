@@ -37,6 +37,7 @@
 #define TARGET_DATABUFF_LEN    64 
 
 #include "Arduino.h"
+#include <stdint.h>
 
 extern void fXRESInitializeTargetForISSP(void);
 extern signed char SendInitVectors(void);

@@ -167,11 +167,12 @@ void SetSCLKStrong(void)
 
 // Arduinos digitalWrite function is to slow (violates timings), this is a workaround
 void digitalWriteSDATA(unsigned char val) {
-    if (val == LOW) {
-        *out &= ~bit;
-    } else {
-        *out |= bit;
-    }
+    //if (val == LOW) {
+    //    *out &= ~bit;
+    //} else {
+    //    *out |= bit;
+    //}
+    digitalWrite(SDATA_PIN, val);
 }
 
 // ********************* LOW-LEVEL ISSP SUBROUTINE SECTION ********************

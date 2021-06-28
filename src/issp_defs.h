@@ -33,6 +33,8 @@
 #ifndef INC_ISSP_DEFS
 #define INC_ISSP_DEFS
 
+#include <stdint.h>
+
 // Block-Verify Uses 64-Bytes of RAM
 #define TARGET_DATABUFF_LEN    64 
 
@@ -118,18 +120,18 @@
     #define SECURITY_BYTES_PER_BANK      32
 #endif
 // used for SDATA writing
-extern unsigned char bit;
-extern volatile unsigned char *out;
+extern uint32_t bit;
+extern volatile uint32_t *out;
 // ****************************** PORT BIT MASKS ******************************
 // ****************************************************************************
 // ****                        PROCESSOR SPECIFIC                          ****
 // ****************************************************************************
 // ****                      USER ATTENTION REQUIRED                       ****
 // ****************************************************************************
-#define SDATA_PIN   9
-#define SCLK_PIN    8
-#define XRES_PIN    4
-#define TARGET_VDD  11
-#define TP_PIN      12
+#define SDATA_PIN   PB15
+#define SCLK_PIN    PB14
+#define XRES_PIN    PB13
+#define TARGET_VDD  PB12
+#define TP_PIN      PB11
 #endif //(INC_ISSP_DEFS)
 

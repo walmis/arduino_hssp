@@ -345,8 +345,8 @@ int error=0;
 int pmode=0;
 int here;
 uint8_t buff[256]; // global block storage
-unsigned char bit;
-volatile unsigned char *out;
+uint32_t bit;
+volatile uint32_t *out;
 int psocisp();
 
 uint8_t getch() {
@@ -428,10 +428,19 @@ int8_t start_pmode() {
   } else {
     result = fPowerCycleInitializeTargetForISSP();
   }
-  if (result)
-        Serial.print((char) Resp_STK_FAILED);
-  else
-        Serial.print((char) Resp_STK_OK);
+  
+  if (Sync_CRC_EOP == getch()) {
+      Serial.print((char)Resp_STK_INSYNC);
+      if (result)
+            Serial.print((char) Resp_STK_FAILED);
+      else
+            Serial.print((char) Resp_STK_OK);
+  } else {
+    error++;
+    Serial.print((char)Resp_STK_NOSYNC);
+  }
+  
+
   pmode = 1;
   return result;
 }
@@ -598,11 +607,16 @@ void setup() {
   param.prgm_block = PROGRAM_BLOCK_21_22_23_24_28_29_TST_TMG_TMA;
   param.multi_bank = false;
   Serial.begin(115200);
+
+    pinMode(LED_BUILTIN, OUTPUT);
+    
 }
 
 void loop() {
+
   if (Serial.available()) {
     psocisp();
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
   }
 }
 
@@ -640,9 +654,7 @@ int psocisp() {
       break;
     case Cmnd_STK_INIT_PROGMODE:
       res = SendInitVectors();
-      Serial.print((char) Resp_STK_INSYNC);
-      Serial.print((char) res);
-      Serial.print((char) Resp_STK_OK);
+      start_pmode();
       break;
     case Cmnd_STK_CHIP_ERASE:
       erase_chip();
