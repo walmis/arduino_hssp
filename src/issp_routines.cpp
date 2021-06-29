@@ -384,6 +384,8 @@ signed char fPowerCycleInitializeTargetForISSP(void)
 }
 
 void setAddress(unsigned char bBankNumber, unsigned char bBlockNumber) {
+  SetBankNumber(bBankNumber);
+  
   SendVector(set_block_number, 11);
 
   // Set the drive here because SendByte() does not

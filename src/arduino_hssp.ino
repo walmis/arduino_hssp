@@ -321,7 +321,7 @@
 //----------------------------------------------------------------------------
 */
 
-#define CY8C21x45
+#define CY8C24x94
 
 // ------ Declarations Associated with ISSP Files & Routines -------
 //     Add these to your project as needed.
@@ -664,7 +664,7 @@ int psocisp() {
       here = getch();
       here += 256 * getch();
       here /= 64;
-      setAddress(0, (here)); // TODO support for multiple banks
+      setAddress(here / BLOCKS_PER_BANK, (here % BLOCKS_PER_BANK)); 
       empty_reply();
       break;
     case Cmnd_STK_PROG_PAGE:
