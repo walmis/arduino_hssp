@@ -513,6 +513,15 @@ void read_reg() {
   return;
 }
 
+uint8_t read_romx(uint16_t address) {
+    writeReg(0xF0, address>>8); // A = 0
+    writeReg(0xF3, address&0xFF); // X = 0
+    unsigned char opc[3] = {0x28,0x30, 0x40}; //ROMX HALT NOP
+    Exec(opc);
+    return readReg(0xF0);
+}
+
+
 void write_reg() {
   int addr = getch();
   int value = getch();
